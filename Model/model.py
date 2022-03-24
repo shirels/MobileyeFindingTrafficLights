@@ -74,10 +74,6 @@ class TFLMan:
         :param frame: get a frame image
         :return: vector of colors
         """
-        # vector candidiates position [y,x]
-        # self.candidates = [[500,500], [500, 510],[500, 520], [500, 700], [500, 710],[510.89, 331.49], [930.51, 154.78], [1126.92, 325.93]]
-        # self.auxiliary1 = {"red": [[500, 500], [500, 510], [500, 520], [510.89, 331.49], [930.51, 154.78]],
-        #              "green": [[500, 700], [500, 710], [1126.92, 325.93]]} # [0] = red, [1] = green
         self.auxiliary_stage1 = find_tfl(frame)
         return self.auxiliary_stage1
 
@@ -89,8 +85,6 @@ class TFLMan:
         :param auxiliary:
         :return: traffic light - vector of K<=position
         """
-        # self.traffic_lights = [[510.89, 331.49], [930.51, 154.78], [1126.92, 325.93]]
-        # self.auxiliary2 = {"red": [[510.89, 331.49], [930.51, 154.78]], "green": [[1126.92, 325.93]]}
         self.auxiliary_stage2 = prediction(current_frame=current_frame, auxiliary=self.auxiliary_stage1)
         return self.auxiliary_stage2
 
@@ -107,31 +101,9 @@ class TFLMan:
         :param focal:
         :return:
         """
-        # self.distances = [42.1, 39.3, 46.5]
         curr_container = calc_TFL_dist(prev_container, curr_container, focal, pp)
         self.prev_container = curr_container
         return curr_container.traffic_lights_3d_location[:, 2]
 
 
-    # def visualize(self):
-    #
-    #     fig, (candidates, tfl, dist) = plt.subplots(3, 1, figsize=(12, 6))
-    #     candidates.set_title("part 1")
-    #     tfl.set_title("part 2")
-    #     dist.set_title("part 3")
-    #     dist.imshow(png.read_png_int(r"../data/images/dusseldorf_000049_000029_leftImg8bit.png"))
-    #     candidates.imshow(png.read_png_int(r"../data/images/dusseldorf_000049_000029_leftImg8bit.png"))
-    #     candidates.plot(np.array(self.auxiliary_stage1["red"])[:, 0], np.array(self.auxiliary_stage1["red"])[:, 1], 'rx', markersize=8)
-    #     candidates.plot(np.array(self.auxiliary_stage1["green"])[:,0], np.array(self.auxiliary_stage1["green"])[:,1], 'g+', markersize=8)
-    #
-    #     tfl.imshow(png.read_png_int(r"../data/images/dusseldorf_000049_000029_leftImg8bit.png"))
-    #     tfl.plot(np.array(self.auxiliary_stage2["red"])[:, 0], np.array(self.auxiliary_stage2["red"])[:, 1], 'rx', markersize=8)
-    #     tfl.plot(np.array(self.auxiliary_stage2["green"])[:, 0], np.array(self.auxiliary_stage2["green"])[:, 1], 'g+', markersize=8)
-    #
-    #     prev_p = np.array(self.prev_container.traffic_light)
-    #     dist.plot(prev_p[:, 0], prev_p[:, 1], 'b+')
-    #
-    #     for i in range(len(prev_p)):
-    #         dist.plot(prev_p[i, 0], [prev_p[i, 1]], 'b')
-    #         dist.text(prev_p[i, 0], prev_p[i, 1], r'{0:.1f}'.format(self.distances[i, 2]), color='r')
-    #     plt.show()
+   
