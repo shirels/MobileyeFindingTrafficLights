@@ -25,7 +25,7 @@ def init(path: str):
 
 
 def run():
-    pkl, frames_path, first_frame_index, tfl_manager = init(r'C:\Users\Shirel\Documents\אקסלנטים\bootcamp\mobileye_integration\play_list.pls')
+    pkl, frames_path, first_frame_index, tfl_manager = init(r'[FILL_DIRECTORY]\play_list.pls')
     for i, frame in enumerate(frames_path, start=first_frame_index):
         current_frame = frame
         prev_frame = None
