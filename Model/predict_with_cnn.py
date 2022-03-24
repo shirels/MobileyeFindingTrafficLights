@@ -19,7 +19,7 @@ def crop_image_by_pixel(x, y, image):
 
 def prediction(current_frame, auxiliary):
 
-    loaded_model = load_model(r"C:\Users\Shirel\Documents\אקסלנטים\bootcamp\mobileye_integration\Model\model.h5")
+    loaded_model = load_model(r"[CURRENT_DIRECTORY]\model.h5")
     for color in ['red', 'green']:
         cur_auxiliary = auxiliary[color]
         crops_lst = [np.array(crop_image_by_pixel(aux[0], aux[1], current_frame)).tolist() for aux in cur_auxiliary]
